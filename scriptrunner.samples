@@ -1,0 +1,35 @@
+{code}npn@docs02:/pack/jira-groovy$ cat /pack/jira-groovy/set-security-level-from-parent.groovy 
+
+import com.atlassian.jira.issue.Issue 
+import com.atlassian.jira.ComponentManager 
+import com.atlassian.jira.issue.CustomFieldManager 
+import com.atlassian.jira.issue.fields.CustomField 
+import com.atlassian.jira.issue.MutableIssue 
+import com.atlassian.jira.util.ImportUtils 
+import com.atlassian.jira.issue.index.IssueIndexManager 
+import com.atlassian.jira.issue.security.IssueSecurityLevelManager 
+import com.atlassian.jira.issue.security.IssueSecuritySchemeManager 
+
+String issuekey = issue.key System.out.println("script=set-security-level-from-parent.groovy action=StartScript key=" + issuekey); 
+
+Issue parentissue = issue.getParentObject() 
+
+String parentissuekey=parentissue.key 
+
+System.out.println("script=set-security-level-from-parent.groovy action=StartScript key=" + issuekey + " parentkey=" + parentissuekey) 
+
+Integer parentsecuritylevel = parentissue.securityLevel?.id 
+
+String parentsecuritylevelname = parentissue.securityLevel?.name 
+
+if (parentsecuritylevel == 10000) 
+{ 
+System.out.println("script=set-security-level-from-parent.groovy action=StartScript key=" + issuekey + " 
+Set Security Level to " + parentsecuritylevelname + " from " + parentissuekey) issue.setSecurityLevelId(parentsecuritylevel) 
+} 
+System.out.println("script=set-security-level-from-parent.groovy action=EndScript"); 
+
+{code}
+
+
+issue.setSecurityLevel (secLevelGv)
